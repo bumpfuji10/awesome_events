@@ -1,10 +1,15 @@
 class TicketsController < ApplicationController
+
+  def show
+    @event = Event.find(params[:id])
+  end
+
   def new
     raise ActionController::RoutingError, "ログイン状態で TicketsController#new にアクセス"
   end
 
   def create
-    event = Event.find(params[:id])
+    event = Event.find(params[:event_id])
     @ticket = current_user.tickets.build do |t|
       t.event = event
       t.comment = params[:ticket][:comment]

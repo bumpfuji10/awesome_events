@@ -32,6 +32,6 @@ class User < ApplicationRecord
       errors[:base] << "未終了の参加イベントが存在します。"
     end
 
-    throw(:abort) unless erros.empty?
+    throw(:abort) unless errors.empty?
   end
 end

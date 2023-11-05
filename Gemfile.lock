@@ -81,6 +81,11 @@ GEM
       dotenv (= 2.8.1)
       railties (>= 3.2)
     erubi (1.12.0)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faraday (2.7.11)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -273,6 +278,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   dotenv-rails
+  factory_bot_rails
   hamlit-rails (~> 0.2.3)
   jbuilder (~> 2.7)
   listen (~> 3.2)

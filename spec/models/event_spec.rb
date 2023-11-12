@@ -181,4 +181,24 @@ RSpec.describe Event, type: :model do
       end
     end
   end
+
+  describe "#created_by?" do
+    let(:event_creator) { FactoryBot.create(:user) }
+    let(:other_user) { FactoryBot.create(:user, name: "other_user") }
+    let!(:event) { FactoryBot.create(:event, owner: event_creator) }
+
+    context "event_creatorがeventの作成者の場合" do
+
+      it "trueが返却されること" do
+        expect(event.created_by?(event_creator)).to eq true
+      end
+    end
+
+    context "other_userがeventの作成者ではない場合" do
+
+      it "falseが返却されること" do
+        expect(event.created_by?(other_user)).to eq false
+      end
+    end
+  end
 end

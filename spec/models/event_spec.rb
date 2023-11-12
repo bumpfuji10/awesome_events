@@ -1,13 +1,183 @@
-require 'rails_helper'
 
+require 'rails_helper'
 RSpec.describe Event, type: :model do
+
   describe "validates" do
+    let(:user) { FactoryBot.create(:user) }
+
     context "name" do
-      let(:user) { FactoryBot.create(:user) }
+
+      context "nameが50文字以内の場合" do
+      let(:valid_event) { FactoryBot.build(:event, name: "a" * 50, owner: user) }
+
+        it "eventが有効であること" do
+          expect(valid_event).to be_valid
+        end
+      end
+    end
+
+    context "nameが51文字以上の場合" do
       let(:invalid_event) { FactoryBot.build(:event, name: "a" * 51, owner: user) }
 
-      it "nameが51文字以上の場合、eventが作成できないこと" do
+      it "eventが無効であること" do
         expect(invalid_event).to be_invalid
+      end
+    end
+
+    context "nameが入力されている場合" do
+      let(:valid_event) { FactoryBot.build(:event, name: "test event", owner: user) }
+
+      it "eventが有効であること" do
+        expect(valid_event).to be_valid
+      end
+    end
+
+    context "nameが未入力の場合" do
+      let(:invalid_event) { FactoryBot.build(:event, owner: user) }
+      before do
+        invalid_event.name = nil
+      end
+
+      it "eventが無効であること" do
+        expect(invalid_event).to be_invalid
+      end
+    end
+
+    context "place" do
+
+      context "placeが100文字以内の場合" do
+        let(:valid_event) { FactoryBot.build(:event, place: "a" * 100, owner: user) }
+
+        it "eventが有効であること" do
+          expect(valid_event).to be_valid
+        end
+      end
+
+      context "placeが101文字以上の場合" do
+        let(:invalid_event) { FactoryBot.build(:event, place: "a" * 101, owner: user) }
+
+        it "eventが無効であること" do
+          expect(invalid_event).to be_invalid
+        end
+      end
+
+      context "placeが入力されている場合" do
+        let(:valid_event) { FactoryBot.build(:event, place: "test place", owner: user) }
+
+        it "eventが有効であること" do
+          expect(valid_event).to be_valid
+        end
+      end
+
+      context "placeが未入力の場合" do
+
+        let(:invalid_event) { FactoryBot.build(:event, owner: user) }
+        before do
+          invalid_event.place = nil
+        end
+
+        it "eventが無効であること" do
+          expect(invalid_event).to be_invalid
+        end
+      end
+
+      context "content" do
+
+        context "contentが2000文字以内の場合" do
+          let(:valid_event) { FactoryBot.build(:event, content: "a" * 2000, owner: user) }
+
+          it "eventが有効であること" do
+            expect(valid_event).to be_valid
+          end
+        end
+
+        context "contentが2001文字以上の場合" do
+          let(:invalid_event) { FactoryBot.build(:event, content: "a" * 2001, owner: user) }
+
+          it "eventが無効であること" do
+            expect(invalid_event).to be_invalid
+          end
+        end
+
+        context "contentが入力されている場合" do
+          let(:valid_event) { FactoryBot.build(:event, content: "test content", owner: user) }
+
+          it "eventが有効であること" do
+            expect(valid_event).to be_valid
+          end
+        end
+
+        context "contentが未入力の場合" do
+          let(:invalid_event) { FactoryBot.build(:event, owner: user) }
+          before do
+            invalid_event.content = nil
+          end
+
+          it "eventが無効であること" do
+            expect(invalid_event).to be_invalid
+          end
+        end
+      end
+
+      context "start_at" do
+        context "start_atが入力されている場合" do
+          let(:valid_event) { FactoryBot.build(:event, start_at: Time.now) }
+
+          it "eventが有効であること" do
+            expect(valid_event).to be_valid
+          end
+        end
+
+        context "start_atが未入力の場合" do
+          let(:invalid_event) { FactoryBot.build(:event, owner: user) }
+          before do
+            invalid_event.start_at = nil
+          end
+
+          it "eventが無効であること" do
+            expect(invalid_event).to be_invalid
+          end
+        end
+      end
+
+      context "end_at" do
+        context "end_atが入力されている場合" do
+          let(:valid_event) { FactoryBot.build(:event, start_at: Time.now, end_at: Time.now + 1.hours) }
+
+          it "eventが有効であること" do
+            expect(valid_event).to be_valid
+          end
+        end
+
+        context "end_atが未入力の場合" do
+          let(:invalid_event) { FactoryBot.build(:event, owner: user) }
+          before do
+            invalid_event.end_at = nil
+          end
+
+          it "eventが無効であること" do
+            expect(invalid_event).to be_invalid
+          end
+        end
+      end
+
+      context "start_at_should_be_before_end_at" do
+
+        context "start_atがend_atよりも前の時間の場合" do
+          let(:valid_event) { FactoryBot.build(:event, start_at: Time.now, end_at: Time.now + 1.hours, owner: user) }
+
+          it "eventが有効であること" do
+            expect(valid_event).to be_valid
+          end
+        end
+
+        context "start_atがend_atよりも後の時間の場合" do
+          let(:invalid_event) { FactoryBot.build(:event, start_at: Time.now, end_at: Time.now - 1.hours, owner: user)}
+
+          it "eventが無効であること" do
+            expect(invalid_event).to be_invalid
+          end
+        end
       end
     end
   end

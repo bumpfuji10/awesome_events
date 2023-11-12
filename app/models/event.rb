@@ -16,7 +16,6 @@ class Event < ApplicationRecord
 
   private
 
-
   def start_at_should_be_before_end_at
     return unless start_at && end_at
 

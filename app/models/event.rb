@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-  has_one_attached: image
+  has_one_attached :image
   belongs_to :owner, class_name: "User"
   has_many :tickets, dependent: :destroy
 

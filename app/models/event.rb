@@ -10,6 +10,10 @@ class Event < ApplicationRecord
   validates :end_at, presence: true
   validate :start_at_should_be_before_end_at
 
+  validates :image, content_type: [:png, :jpg, :jpeg],
+                    size: { less_than_or_equal_to: 10.megabytes },
+                    dimensions: { width: { max: 2000 }, height: { max: 2000 } }
+
   attr_accessor :remove_image
 
   before_save :remove_image_if_user_accept

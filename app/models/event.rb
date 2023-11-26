@@ -12,7 +12,7 @@ class Event < ApplicationRecord
 
   validates :image, content_type: [:png, :jpg, :jpeg],
                     size: { less_than_or_equal_to: 10.megabytes },
-                    dimensions: { width: { max: 2000 }, height: { max: 2000 } }
+                    dimension: { width: { max: 2000 }, height: { max: 2000 } }
 
   attr_accessor :remove_image
 

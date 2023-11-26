@@ -30,8 +30,6 @@ gem 'rails-i18n', '~> 6.0.0'
 
 gem 'searchkick', '~> 4.6.3'
 
-gem "elasticsearch"
-
 # .envファイルをRailsが読み込むように
 gem 'dotenv-rails', groups: [:development, :test]
 
@@ -44,6 +42,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'active_storage_validations', '~> 0.8.8'
 
 gem 'kaminari', '~> 1.2.0'
+
+gem 'faraday'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

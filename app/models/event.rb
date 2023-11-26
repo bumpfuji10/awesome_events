@@ -1,4 +1,5 @@
 class Event < ApplicationRecord
+  searchkick language: "japanese"
   has_one_attached :image
   belongs_to :owner, class_name: "User"
   has_many :tickets, dependent: :destroy

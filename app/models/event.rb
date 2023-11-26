@@ -37,4 +37,13 @@ class Event < ApplicationRecord
     end
   end
 
+  def search_data
+    {
+      name: name,
+      place: place,
+      content: content,
+      owner_name: owner&.name,
+      start_at: start_at
+    }
+  end
 end

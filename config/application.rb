@@ -25,5 +25,8 @@ module AwesomeEvents
     config.time_zone = 'Tokyo'
     config.i18n.default_locale = :ja
     config.active_storage.variant_processor = :vip
+    config.action_dispatch.rescue_response.merge!(
+      "YourNewException" => :not_found
+    )
   end
 end
